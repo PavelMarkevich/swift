@@ -49,6 +49,7 @@ import Foundation
 // your answer is here
 // A correct solution:
 // your code is here
+
 /*:
  ### Challenge 2
  In each of the following statements, what is the value of the Boolean `answer` constant?
