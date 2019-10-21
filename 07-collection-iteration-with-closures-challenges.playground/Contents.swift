@@ -44,6 +44,19 @@
  Use this function to print `"Swift Apprentice is a great book!"` 10 times.
  */
 // your code here
+
+func repeatTask(times: Int, task: () -> Void) {
+    var count = times
+    while count != 0 {
+        count -= 1
+        task()
+    }
+}
+let printer: () -> Void = {
+        print("Swift Apprentice is a great book!")
+}
+repeatTask(times: 10, task: printer)
+
 /*:
  ### Challenge 2: Closure sums
  
@@ -62,6 +75,33 @@
  Use the function to find the sum of the first 10 square numbers, which equals 385. Then use the function to find the sum of the first 10 Fibonacci numbers, which equals 143. For the Fibonacci numbers, you can use the function you wrote in the functions chapter — or grab it from the solutions if you’re unsure your solution is correct.
  */
 // your code here
+func mathSum(length: Int, series: (Int) -> Int) -> Int {
+    var count = length
+    var sumElement = 0
+    while count != -1 {
+        sumElement += series(count)
+        count -= 1
+    }
+    return sumElement
+}
+
+let series: (Int) -> Int = { x in
+    let multiply = x * x
+    return multiply
+}
+
+let fibonacci: (Int) -> Int = { x in
+    var x1 = 1
+    var y = 0
+    for _ in 0..<x {
+        x1 += y
+        y = x1 - y
+    }
+    return y
+}
+
+mathSum(length: 10, series: series)
+mathSum(length: 10, series: fibonacci)
 /*:
  ### Challenge 3: Functional ratings
  
@@ -82,3 +122,29 @@
  Finally, use `filter` and `map` chained together to get a list of the app names whose average rating is greater than 3.
  */
 // your code here
+
+let appRatings = [
+    "Calendar Pro": [1, 5, 5, 4, 2, 1, 5, 4],
+    "The Messenger": [5, 4, 2, 5, 4, 1, 1, 2],
+    "Socialise": [2, 1, 2, 2, 1, 2, 4, 2]
+]
+
+appRatings.forEach { word in
+    print(word)
+}
+
+let averageRatings: [String: Int] = appRatings.reduce(into: [:]) {
+    (result, this: (key: String, value: [Int])) in
+    var sum = 0
+    for i in 0..<this.value.count {
+        sum += this.value[i]
+    }
+    result.updateValue(sum / this.value.count, forKey: this.key)
+}
+
+let filter = averageRatings.filter { $0.value > 2 }.map { (key, value) -> String in
+    return key
+}
+
+print(filter)
+
