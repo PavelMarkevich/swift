@@ -30,9 +30,6 @@
 
 import Foundation
 
-/*:
- ## Strings
- */
 
 /*:
  ### Challenge 1
@@ -42,7 +39,23 @@ import Foundation
  */
 
 // your code here
+func printStr(str: String) {
+    var arrayStr = [Character]()
+    
+    for i in str {
+        arrayStr.append(i)
+    }
+    
+    let dictionaryStr = arrayStr.reduce(into: [:]) {
+        counts , letter in counts[letter, default: 0] += 1
+    }
+    
+    dictionaryStr.sorted(by: <).forEach { (key, value) in
+        print("\(key) --- \(value)")
+    }
+}
 
+printStr(str: "abcabcabcbaaabbbbccccccc")
 
 /*:
  ### Challenge 2
@@ -53,12 +66,35 @@ import Foundation
 
 // your code here
 
+func stringWords(str: String) -> Int {
+    var count = 0
+    
+    for char in str {
+        if char == " " {
+            count += 1
+        }
+    }
+    
+    return count
+}
+
+stringWords(str: "GDbf fjefn efnjwnef ff fhr whbf")
 /*:
  ### Challenge 3
 Write a function that takes a string which looks like "Galloway, Matt" and returns one which looks like "Matt Galloway", i.e., the string goes from `"<LAST_NAME>, <FIRST_NAME>"` to `"<FIRST_NAME> <LAST_NAME>"`.
  */
 
 // your code here
+func returns(name: String) -> String {
+    let spaceIndex = name.index(of: ",")!
+    let firstName = name[name.startIndex..<spaceIndex]
+    let lastName = name[name.index(after: spaceIndex)...]
+    var result = lastName + " " + firstName
+    result.removeFirst()
+    return String(result)
+}
+returns(name: "Galloway, Matt")
+
 
 /*:
  ### Challenge 4
@@ -71,8 +107,44 @@ Write a function that takes a string which looks like "Galloway, Matt" and retur
  */
 
 // your code here
+var name = "My dog is called Rover"
+name.components(separatedBy: " ")
 
+func component(str: String, separateBy: Character) -> [String] {
+    var result = [String]()
+    var res = ""
+    for char in str {
+        if char != separateBy {
+            res += String(char)
+        } else {
+            result.append(res)
+            res = ""
+        }
+    }
+    result.append(res)
+    return result
+}
 
+print(component(str: "My dog is called Rover", separateBy: " "))
+
+func comp(str: String, separete: Character) -> [String] {
+    var result = [String]()
+    var stroka = str
+    for char in stroka {
+        if char == separete {
+            let spaceIndex = stroka.index(of: separete)!
+            let firstName = stroka[stroka.startIndex..<spaceIndex]
+            stroka.removeSubrange(stroka.startIndex..<spaceIndex)
+            stroka.remove(at: stroka.startIndex)
+            result.append(String(firstName))
+        }
+    }
+    let n = stroka[stroka.startIndex...]
+    result.append(String(n))
+    return result
+}
+
+comp(str: "My dog is called Rover", separete: " ")
 /*:
  ### Challenge 5
  Write a function which takes a string and returns a version of it with each individual word reversed.
@@ -85,3 +157,24 @@ Write a function that takes a string which looks like "Galloway, Matt" and retur
  */
 
 // your code here
+
+func reversed(str: String) -> String {
+    var result = ""
+    
+    let array = component(str: str, separateBy: " ")
+    var arr = [Character]()
+    
+    for i in 0..<array.count {
+        for char in array[i] {
+            arr.append(char)
+        }
+        for i in 1...arr.count {
+            result += String(arr[arr.count - i])
+        }
+        arr.removeAll()
+        result += " "
+    }
+    return result
+}
+
+print(reversed(str: "My dog is called Rover"))
