@@ -65,32 +65,89 @@ let X: BoardPiece = "X"
 let O: BoardPiece = "O"
 
 // your code here
+
+struct Game {
+    var board: [BoardPiece]
+    
+    var currentPlayer: BoardPiece
+    
+    var winner: BoardPiece? {
+        if board[0] == X && board[4] == X && board[8] == X {
+            return X
+        } else if board[0] == O && board[4] == O && board[8] == O {
+            return O
+        }
+        return nil
+    }
+    
+    var iaFinished: Bool {
+        for i in 0..<board.count {
+            if board[i] != " " {
+                return true
+            } else if winner != nil {
+                return true
+            }
+        }
+        return false
+    }
+    
+    mutating func processSelection(position: Int) {
+        
+        for i in 0..<board.count {
+            if position == i {
+                if board[i] == " " {
+                    board[i] = currentPlayer
+                }
+            }
+        }
+        if currentPlayer == X {
+            currentPlayer = O
+        } else {
+            currentPlayer = X
+        }
+    }
+    
+    mutating func printBoard() {
+        print(
+            """
+               \(board[0]) | \(board[1]) |\(board[2])
+               ---------
+               \(board[3]) | \(board[4]) |\(board[5])
+               ---------
+               \(board[6]) | \(board[7]) |\(board[8])
+            """
+        )
+    }
+}
+
 /*:
  Play a game!
  */
 
-//var game = Game()
+var game = Game(board: Array(repeating: " ", count: 9), currentPlayer: X)
 
-//print("Welcome to Tic-Tac-Toe!")
-//game.printBoard()
-//
-//game.processSelection(position: 4)
-//game.processSelection(position: 3)
-//game.processSelection(position: 5)
-//game.processSelection(position: 2)
-//game.processSelection(position: 8)
-//game.processSelection(position: 1)
-//game.processSelection(position: 0)
-//game.processSelection(position: 6)
-//game.printBoard()
+print("Welcome to Tic-Tac-Toe!")
+game.printBoard()
+
+game.processSelection(position: 4)
+game.processSelection(position: 3)
+game.processSelection(position: 5)
+game.processSelection(position: 2)
+game.processSelection(position: 8)
+game.processSelection(position: 1)
+game.processSelection(position: 0)
+game.processSelection(position: 6)
+game.processSelection(position: 8)
+game.printBoard()
 
 
-//print("Game over!")
-//if let winner = game.winner {
-//  print("The winner is player \(winner). Congratulations!")
-//} else {
-//  print("The game is tied. Try again!")
-//}
+print("Game over!")
+game.iaFinished
+if let winner = game.winner {
+  print("The winner is player \(winner). Congratulations!")
+} else {
+  print("The game is tied. Try again!")
+}
 
 
 /*:
@@ -110,14 +167,63 @@ let polyester: Material = "Polyester"
 let wool: Material = "Wool"
 
 typealias Color = String
+let red: Color = "Red"
+let white: Color = "White"
+let black: Color = "Black"
 
 /*:
 	**Note:** Using a floating point number is good for demonstrations, but there are subtle but important reasons why you should not use Floats or Doubles for currency in production. Read http://stackoverflow.com/questions/3730019/why-not-use-double-or-float-to-represent-currency
  */
 
 // your code is here
+struct Shirt {
+    var size: Size
+    var material: Material
+    var color: Color
+    
+    func cost() -> Double {
+        var cost = 0.0
+        
+        switch size {
+        case small:
+            cost += 10
+        case medium:
+            cost += 15
+        case large:
+            cost += 20
+        case xLarge:
+            cost += 25
+        default:
+            break
+        }
+        
+        switch material {
+        case cotton:
+            cost += 5
+        case polyester:
+            cost += 10
+        case wool:
+            cost += 15
+        default:
+            break
+        }
+        
+        switch color {
+        case red:
+            cost += 10
+        case white:
+            cost += 11
+        case black:
+            cost += 12
+        default:
+            break
+        }
+        return cost
+    }
+}
 
-
+var shirt = Shirt(size: xLarge, material: cotton, color: black)
+shirt.cost()
 
 /*:
 ### Challenge 3
@@ -138,36 +244,53 @@ struct Coordinate {
 }
 
 struct Ship {
-//your code here
+    var origin: Coordinate
+    var direction: Direction
+    var length: Int
+    
 }
 
 struct Board {
-//your code here
+    var ships: [Ship] = []
+    
+    func fire(location: Coordinate) {
+        for i in 0..<ships.count {
+            if ships[i].direction == "Right" {
+                if location.y == ships[i].origin.y && (ships[i].origin.x - (ships[i].length - 1)...ships[i].origin.x ~= location.x) {
+                    print("Hit on the \(ships[i]) in coord x - \(location.x), y - \(location.y)")
+                }
+            } else if ships[i].direction == "Down" {
+                if location.x == ships[i].origin.x && (ships[i].origin.y...ships[i].origin.y + (ships[i].length - 1) ~= location.y) {
+                    print("Hit on the \(ships[i]) in coord x - \(location.x), y - \(location.y)")
+                }
+            }
+        }
+    }
 }
 
 /*:
  Set up ships.
  */
 
-//let patrolBoat = Ship(origin: Coordinate(x: 2, y: 2), direction: Right, length: 2)
-//let battleship = Ship(origin: Coordinate(x: 5, y: 3), direction: Down, length: 4)
-//let submarine = Ship(origin: Coordinate(x: 0, y: 0), direction: Down, length: 3)
+let patrolBoat = Ship(origin: Coordinate(x: 2, y: 2), direction: Right, length: 2)
+let battleship = Ship(origin: Coordinate(x: 5, y: 3), direction: Down, length: 4)
+let submarine = Ship(origin: Coordinate(x: 0, y: 0), direction: Down, length: 3)
 
 /*:
   Set up the board.
   */
 
-//var board = Board()
-//board.ships.append(contentsOf: [patrolBoat, battleship, submarine])
+var board = Board()
+board.ships.append(contentsOf: [patrolBoat, battleship, submarine])
 
 /*:
  Play the game.
  */
 
-//board.fire(location: Coordinate(x: 2, y: 2)) // Hit on the patrolBoat
+board.fire(location: Coordinate(x: 2, y: 2)) // Hit on the patrolBoat
 //
-//board.fire(location: Coordinate(x: 2, y: 3)) // Miss...
+board.fire(location: Coordinate(x: 2, y: 3)) // Miss...
 //
-//board.fire(location: Coordinate(x: 5, y: 6)) // Hit on the battleship
+board.fire(location: Coordinate(x: 5, y: 6)) // Hit on the battleship
 //
-//board.fire(location: Coordinate(x: 5, y: 7)) // Miss...
+board.fire(location: Coordinate(x: 5, y: 7)) // Miss...
