@@ -43,6 +43,16 @@
  */
 // your code here
 
+struct IceCream {
+    let name = "Oleg"
+    lazy var ingredient: [String] = ["fwefef"]
+}
+
+
+
+
+
+
 /*:
  ## Challenge 2
  
@@ -63,16 +73,32 @@
 struct FuelTank {
     
     var lowFuel: Bool
-    var level: Double // decimal percentage between 0 and 1
+    var level: Double {
+        willSet {
+            if newValue * 100 < 10 {
+                lowFuel = true
+            } else {
+                lowFuel = false
+            }
+        }
+        didSet {
+            if level < 0 {
+                level = 0
+            } else if level > 1 {
+                level = 1
+            }
+        }
+    }// decimal percentage between 0 and 1
 
 }
 
 struct Car {
     let make: String
     let color: String
+    var tank: FuelTank
 }
 
 
-//var car = Car(make: "Delorian", color: "Silver", tank: FuelTank(lowFuel: false, level: 1))
-//car.tank.level = -1 // level: 0, lowFuel: true
-//car.tank.level = 1.1 // level: 1, lowFuel: false
+var car = Car(make: "Delorian", color: "Silver", tank: FuelTank(lowFuel: false, level: 1))
+car.tank.level = -1// level: 0, lowFuel: true
+car.tank.level = 1.1 // level: 1, lowFuel: false
