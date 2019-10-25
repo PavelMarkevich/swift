@@ -45,9 +45,11 @@
 
 struct IceCream {
     let name = "Oleg"
-    lazy var ingredient: [String] = ["fwefef"]
+    lazy var ingredient: [String] = ["gdgfd"]
 }
 
+var iceCream = IceCream()
+iceCream.ingredient
 
 
 
@@ -88,8 +90,7 @@ struct FuelTank {
                 level = 1
             }
         }
-    }// decimal percentage between 0 and 1
-
+    }
 }
 
 struct Car {
@@ -102,3 +103,4 @@ struct Car {
 var car = Car(make: "Delorian", color: "Silver", tank: FuelTank(lowFuel: false, level: 1))
 car.tank.level = -1// level: 0, lowFuel: true
 car.tank.level = 1.1 // level: 1, lowFuel: false
+car.tank.level = 0.02
