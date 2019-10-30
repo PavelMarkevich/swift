@@ -75,7 +75,7 @@ iceCream.ingredient
 struct FuelTank {
     
     var lowFuel: Bool
-    var level: Double {
+    var level: Double = 4 {
         willSet {
             if newValue * 100 < 10 {
                 lowFuel = true
@@ -97,6 +97,18 @@ struct Car {
     let make: String
     let color: String
     var tank: FuelTank
+    mutating func update() {
+        tank = FuelTank(lowFuel: false, level: 1)
+    }
+    
+    
+    var test: Int {
+        return 1
+    }
+    
+    func test1() -> Int {
+        return 1
+    }
 }
 
 
@@ -104,3 +116,4 @@ var car = Car(make: "Delorian", color: "Silver", tank: FuelTank(lowFuel: false, 
 car.tank.level = -1// level: 0, lowFuel: true
 car.tank.level = 1.1 // level: 1, lowFuel: false
 car.tank.level = 0.02
+

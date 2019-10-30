@@ -64,7 +64,7 @@ struct Circle {
             return .pi * radius * radius
         }
         set {
-            radius = sqrt(newValue / .pi)
+            radius = (newValue / .pi).squareRoot()
         }
     }
     
@@ -281,3 +281,4 @@ extension Int {
 
 let n = 315
 n.primeFactors()
+

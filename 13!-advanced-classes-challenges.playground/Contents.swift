@@ -34,6 +34,46 @@
  Create three simple classes called `A`, `B`, and `C` where `C` inherits from `B` and `B` inherits from `A`. In each class initializer, call `print("I'm <X>!")` both before and after `super.init()`. Create an instance of `C` called `c`.  What order do you see each `print()` called in?
  */
 
+class A {
+    var name: String
+    
+    init(name: String) {
+        self.name = name
+        print("I'm A!")
+    }
+}
+
+class B: A {
+    var lastName: String
+    
+    init(name: String, lastName: String) {
+        self.lastName = lastName
+        print("I'm B do!")
+        super.init(name: name)
+        print("I'm B po!")
+    }
+}
+
+class C: B {
+    var old: Int
+    
+    init(name: String, lastName: String, old: Int) {
+        self.old = old
+        print("I'm C do!")
+        super.init(name: name, lastName: lastName)
+        print("I'm C po!")
+    }
+    
+    deinit {
+        print("I'm deinit C!")
+    }
+}
+
+let c = C(name: "bus", lastName: "sgb", old: 4)
+do {
+    let _ = C(name: "bus", lastName: "sgb", old: 4)
+}
+
 /*:
  ### Challenge 2
   Implement `deinit` for each class. Place your `c` inside of a `do { }` scope which will cause the reference count to go to zero when it exits the scope. What order are the classes deinitialized in?
@@ -45,7 +85,8 @@
  */
 
 // your code here
-
+var a = c as A
+a.name
 /*:
 ### Challenge 4
 Create a subclass of `StudentAthlete` called `StudentBaseballPlayer` and include properties for `position`, `number`, and `battingAverage`.  What are the benefits and drawbacks of subclassing `StudentAthlete` in this scenario?
@@ -76,7 +117,32 @@ class StudentAthlete: Student {
 
 // your code here
 
+class StudentBaseballPalyer: StudentAthlete {
+    
+    var position: String
+    var number: Int
+    var bettingAverege: Int
+    
+    init(pos: String, num: Int, bet: Int, first: String, last: String) {
+        position = pos
+        number = num
+        bettingAverege = bet
+        super.init(firstName: first, lastName: "cfccyh")
+    }
+}
 
 
 
 
+class Test {
+    var name: String
+    
+    init(name: String) {
+        self.name = name
+    }
+}
+
+var t1: Test? = Test(name: "1")
+t1?.name = "2"
+let t2 = t1
+t1 = nil

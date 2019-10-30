@@ -41,6 +41,61 @@
 
 // your code here
 
+class User {
+    
+    var lists: [String: List] = [:]
+    
+    func addList(_ list: List) {
+//        if name == self.list.name {
+//            self.list.arrayFilms.append(array)
+//        }
+    }
+    
+    func list(forName: String) -> List? {
+//        if self.list.name == forName {
+//             return self.list
+//        }
+        return nil
+    }
+    
+//    init(list: List) {
+//        self.list = list
+//    }
+}
+
+class List {
+    
+    var name: String
+    var arrayFilms : [String]
+    
+//    var dict: [String: [String]] {
+//        return [name: arrayFilms]
+//    }
+    
+    init(name: String, arrayFilms: [String]) {
+        self.name = name
+        self.arrayFilms = arrayFilms
+    }
+    
+    func print() {
+//        Swift.print(self.dict)
+    }
+}
+
+//let jane = User(list: List(name: "jane", arrayFilms: ["Ignore"]))
+//let john = User(list: List(name: "john", arrayFilms: ["Titanic"]))
+//
+//jane.list.dict
+//
+//jane.addList(name: "hfh", array: "Oblast")
+//john.addList(name: "john", array: "Time")
+//jane.list.dict
+//
+//jane.list(forName: "jane")
+//john.list(forName: "john")
+//
+//jane.list.print()
+//john.list.print()
 /*:
  
  What happens when you implement the same with structs and what problems do you run into?
@@ -62,3 +117,61 @@
 /*
  your code here
  */
+
+struct TShirt {
+    
+    var size: String
+    var color: String
+    var price: Int
+    var image: String
+    
+}
+
+class Users {
+    var name: String
+    var email: String
+    var shoppingCart: ShoppingCart
+    init(name: String, email: String, shoppingCart: ShoppingCart) {
+        self.name = name
+        self.email = email
+        self.shoppingCart = shoppingCart
+    }
+}
+
+class Adress {
+    var name: String
+    var street: String
+    var city: String
+    var zipCode: Int
+    
+    init(name: String, street: String, city: String, zipCode: Int) {
+        self.name = name
+        self.street = street
+        self.city = city
+        self.zipCode = zipCode
+    }
+}
+
+struct ShoppingCart {
+    var arrayTShirt: [TShirt]
+    var adress: Adress
+    
+    func cost() -> Int {
+        var cost = 0
+        for i in 0..<arrayTShirt.count {
+            cost += arrayTShirt[i].price
+        }
+        return cost
+    }
+}
+
+let tshirt1 = TShirt(size: "L", color: "black", price: 20, image: "car")
+let tshirt2 = TShirt(size: "M", color: "white", price: 15, image: "tank")
+
+let adress = Adress(name: "House", street: "lenina", city: "Grodno", zipCode: 230004)
+let shoppingCard = ShoppingCart(arrayTShirt: [tshirt1, tshirt2], adress: adress)
+
+let userAndrey = Users(name: "Andrey", email: "andrey@gmail.com", shoppingCart: shoppingCard)
+
+userAndrey.shoppingCart.cost()
+
