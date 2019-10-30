@@ -54,6 +54,15 @@ let coinPurse: [Coin] = [.penny, .quarter, .nickel, .dime, .penny, .dime, .quart
 
 // your code here
 
+func cost(array: [Coin]) -> Int {
+    var cost = 0
+    for i in 0..<array.count {
+        cost += array[i].rawValue
+    }
+    return cost
+}
+cost(array: coinPurse)
+
 /*:
  ## Challenge 2
  
@@ -70,6 +79,26 @@ let coinPurse: [Coin] = [.penny, .quarter, .nickel, .dime, .penny, .dime, .quart
  **Hint:** You’ll need to account for a negative value if summer has already passed in the current year. To do that, imagine looping back around for the next full year.
  */
 // your code here
+
+enum Month: Int {
+    case january = 1, february, march, april, may, june, july, august, september, october, november, december
+    
+    var property: Int {
+        var sum = 0
+        if 6...8 ~= self.rawValue {
+            sum = 0
+        } else  if self.rawValue < 6 {
+            sum = 6 - self.rawValue
+        } else {
+            sum = (12 - self.rawValue) + 6
+        }
+        return sum
+    }
+}
+
+let a = Month.september
+a.property
+
 
 /*:
  ## Challenge 3
@@ -109,6 +138,23 @@ let movements: [Direction] = [.north, .north, .west, .south, .west, .south, .sou
 var location = (x: 0, y: 0)
 
 // your code here
+
+func coordinate(array: [Direction],location: inout (x: Int, y: Int))  {
+    for i in 0..<array.count {
+        switch array[i] {
+        case .north:
+            location.y += 1
+        case .south:
+            location.y -= 1
+        case .east:
+            location.x += 1
+        case .west:
+            location.x -= 1
+        }
+    }
+}
+
+coordinate(array: movements, location: &location)
 
 let currentX = location.x // 1
 let currentY = location.y // -2
