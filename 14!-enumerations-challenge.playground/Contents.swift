@@ -56,8 +56,8 @@ let coinPurse: [Coin] = [.penny, .quarter, .nickel, .dime, .penny, .dime, .quart
 
 func cost(array: [Coin]) -> Int {
     var cost = 0
-    for i in 0..<array.count {
-        cost += array[i].rawValue
+    for i in coinPurse {
+        cost += i.rawValue
     }
     return cost
 }
@@ -140,7 +140,7 @@ var location = (x: 0, y: 0)
 // your code here
 
 func coordinate(array: [Direction],location: inout (x: Int, y: Int))  {
-    for i in 0..<array.count {
+    for i in stride(from: array.count - 1, to: -1, by: -1) {
         switch array[i] {
         case .north:
             location.y += 1
@@ -158,3 +158,16 @@ coordinate(array: movements, location: &location)
 
 let currentX = location.x // 1
 let currentY = location.y // -2
+
+class Test: Equatable {
+    let x: Int
+    let y: Int
+    
+    init(x: Int, y: Int) {
+        self.x = x
+        self.y = y
+    }
+}
+
+//let v1: Test
+//let v2: Test

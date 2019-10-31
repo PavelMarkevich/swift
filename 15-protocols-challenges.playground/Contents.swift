@@ -46,11 +46,113 @@ import Foundation
 //: 1. Create classes or structs for each animal and adopt the appropriate protocols. Feel free to simply use a print() statement for the method implementations.
 
 // your code here
+protocol PetsNeedBeFed {
+    func fed()
+}
 
+protocol PetsFlyNeedBeCaged {
+    func caged()
+}
+
+protocol PetsSwimNeedATank {
+    func tank()
+}
+
+protocol PetsWalkNeedExercise {
+//    var f: Int { get  set }
+    func exercise()
+}
+
+protocol CleanedTanksCagesBoxes {
+    func clean()
+}
+
+struct Dog: PetsNeedBeFed, PetsWalkNeedExercise {
+    
+    func fed() {
+        print("I'm fed")
+    }
+    
+    func exercise() {
+        print("Exercise")
+    }
+}
+
+struct Fish: PetsNeedBeFed, PetsSwimNeedATank, CleanedTanksCagesBoxes {
+    func fed() {
+        print("I'm fed")
+    }
+    
+    func tank() {
+        print("Tank")
+    }
+    
+    func clean() {
+        print("Tank is clean")
+    }
+}
+
+struct Birds: PetsNeedBeFed, PetsFlyNeedBeCaged, CleanedTanksCagesBoxes {
+    func fed() {
+        print("I'm fed")
+    }
+    
+    func caged() {
+        print("Caged")
+    }
+    
+    func clean() {
+        print("Caged is clean")
+    }
+}
+
+struct Test {
+    let pet: PetsNeedBeFed & PetsSwimNeedATank & CleanedTanksCagesBoxes
+}
 //: 2. Create homogenous arrays for animals that need to be fed, caged, cleaned, walked, and tanked. Add the appropriate animals to these arrays. The arrays should be declared using the protocol as the element type, for example `var caged: [Cageable]`.
 
 // your code here
 
+let dogMars = Dog()
+let dogSharik = Dog()
+let fishGold = Fish()
+let fishPerch = Fish()
+let birdsParrot = Birds()
+let birdsBullfinch = Birds()
+
+var arrayPetsNeedFed: [PetsNeedBeFed] = [dogMars, dogSharik, fishGold, fishPerch, birdsParrot, birdsBullfinch]
+var arrayPetsNeedCaged: [PetsFlyNeedBeCaged] = [birdsParrot, birdsBullfinch]
+var arrayPetsNeedCleaned: [CleanedTanksCagesBoxes] = [fishGold, fishPerch, birdsParrot, birdsBullfinch]
+var arrayPetsNeedWalked: [PetsWalkNeedExercise] = [dogSharik, dogMars]
+var arrayPetsNeedTanker: [PetsSwimNeedATank] = [fishPerch, fishGold]
+
 //: 3. Write a loop that will perform the proper tasks (such as feed, cage, walk) on each element of each array.
 
 // your code here
+
+func tasks(array: [Any]) {
+    for item in array {
+        if let x = item as? PetsNeedBeFed {
+            x.fed()
+        }
+
+        if let x = item as? PetsSwimNeedATank {
+            x.tank()
+        }
+
+        if let x = item as? PetsWalkNeedExercise {
+            x.exercise()
+        }
+
+        if let x = item as? PetsFlyNeedBeCaged {
+            x.caged()
+        }
+
+        if let x = item as? CleanedTanksCagesBoxes {
+            x.clean()
+        }
+    }
+}
+
+tasks(array: arrayPetsNeedCaged)
+
