@@ -101,20 +101,50 @@ class Dog {
 class Keeper<Animal> {
   
     var name: String
+    
+    var list = Array<Animal>()
 
     init(name: String) {
         self.name = name
     }
 
     // adds a new animal to the keeper's list of animals
+    
+    func adds(animal: Animal) {
+        list.append(animal)
+    }
 
     // count the animals under the keeper's care
+    
+    func count() -> Int {
+        return list.count
+    }
 
     // removes the last animal from the keeper's list of animals
+    
+    func removeLast() {
+        list.removeLast()
+    }
+    
+    
 
     // returns the animal at `index`
+    
+    func animal(at index: Int) -> Animal? {
+        if 0...(list.count - 1) ~= index {
+            return list[index]
+        }
+        return nil
+    }
   
 }
+let dog = Dog(name: "Mars")
+let dog1 = Dog(name: "Mars2")
+var keeper = Keeper<Dog>(name: "Alex")
+
+
+keeper.adds(animal: dog)
+keeper.adds(animal: dog1)
 
 /*
  Additional comment:
