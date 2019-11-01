@@ -36,6 +36,18 @@
 
 // your code here
 
+class Logger {
+    static let singleton = Logger()
+    
+    private init() {}
+    
+    func log() {
+        print("kek")
+    }
+}
+
+Logger.singleton.log()
+
 /*:
  ### Challenge 2: Stack
 Declare a generic type Stack. A stack is a LIFO (last-in-first-out) data structure that supports the following operations:
@@ -48,6 +60,44 @@ Ensure that these operations are the only exposed interface. In other words, add
  */
 // your code here
 
+class Stack<T> {
+    private var array:[T] = []
+    
+    func peer() -> T? {
+        if !array.isEmpty {
+            return array.last
+        }
+        return nil
+    }
+    
+    func push(item: T) {
+        array.append(item)
+    }
+    
+    func pop() -> T? {
+        if !array.isEmpty {
+            return array.removeLast()
+        }
+        return nil
+    }
+    
+    func count() -> Int {
+        return array.count
+    }
+}
+
+let stack = Stack<Int>()
+stack.push(item: 10)
+stack.push(item: 5)
+stack.push(item: 3)
+
+stack.peer()
+
+stack.count()
+
+stack.pop()
+
+stack.count()
 /*:
  ### Challenge 3: Character battle
 Utilize something called a static factory method to create a game of Wizards vs. Elves vs. Giants.
@@ -76,3 +126,15 @@ battle(wizard, vs: elf) // Elf defeated!
  ```
  */
 // your code here
+let elf = GameCharacterFactory.make(ofType: .elf)
+var giant = GameCharacterFactory.make(ofType: .giant)
+let wizard = GameCharacterFactory.make(ofType: .wizard)
+
+giant.hitPoint = 10000
+
+battle(elf, vs: giant) //Giant defeated!
+battle(wizard, vs: giant) // Giant defeated!
+battle(wizard, vs: elf) // Elf defeated!
+
+
+

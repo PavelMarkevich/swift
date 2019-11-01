@@ -142,6 +142,37 @@ let dog = Dog(name: "Mars")
 let dog1 = Dog(name: "Mars2")
 var keeper = Keeper<Dog>(name: "Alex")
 
+protocol AssociatedTest {
+    associatedtype Model
+    var m: Model { get }
+}
+
+extension AssociatedTest where Model == String {
+    func printT() {
+        print(m)
+    }
+}
+
+class Test<T: AssociatedTest> {
+    
+}
+
+class AssociatedTestString: AssociatedTest {
+    typealias Model = String
+    let m: String = "AssociatedTestString"
+}
+
+class AssociatedTestInt: AssociatedTest {
+    typealias Model = Int
+    let m: Int = 2
+}
+
+let testString = AssociatedTestString()
+testString.printT()
+
+let testInt = AssociatedTestInt()
+
+let objectOfTest = Test<AssociatedTestInt>()
 
 keeper.adds(animal: dog)
 keeper.adds(animal: dog1)
